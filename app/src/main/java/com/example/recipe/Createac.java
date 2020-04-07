@@ -1,13 +1,9 @@
 package com.example.recipe;
 
-import android.app.AppComponentFactory;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,17 +12,15 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class createac extends AppCompatActivity {
+public class Createac extends AppCompatActivity {
 
     EditText Emailcreate,Password,Password2,name;
     Button register;
@@ -79,7 +73,7 @@ public class createac extends AppCompatActivity {
 
             fauth.createUserWithEmailAndPassword(email,pw).addOnCompleteListener((task)->{
                 if(task.isSuccessful()){
-                    Toast.makeText(createac.this, "User Created", Toast.LENGTH_LONG ).show();
+                    Toast.makeText(Createac.this, "User Created", Toast.LENGTH_LONG ).show();
                     userID = fauth.getCurrentUser().getUid();
                     DocumentReference dr = fst.collection("users").document(userID);
                     Map<String,Object> user = new HashMap<>();
@@ -93,7 +87,7 @@ public class createac extends AppCompatActivity {
                     });
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
                 }else{
-                    Toast.makeText(createac.this, "Error! "+ task.getException().getMessage(), Toast.LENGTH_LONG ).show();
+                    Toast.makeText(Createac.this, "Error! "+ task.getException().getMessage(), Toast.LENGTH_LONG ).show();
                     pb.setVisibility(View.GONE);
                 }
             });

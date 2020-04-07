@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">Recipe</string>
+    <string name="app_name" />
+    <string name="drawer_open" />
+    <string name="drawer_close" />
 
 
 </resources>
