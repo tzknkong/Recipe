@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="title">
+        <item>Name</item>
+        <item>version</item>
+        <item>email</item>
+        <item>privacy</item>
+    </string-array>
+
+    <string-array name="subtitle">
+        <item>DessertBook</item>
+        <item>version1.0</item>
+        <item>dessertbook@gmail.com</item>
+        <item>privacy</item>
+    </string-array>
+</resources>

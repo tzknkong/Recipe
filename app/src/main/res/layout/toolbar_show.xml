@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/toolbar_imageview"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_gravity="bottom"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        tools:ignore="ContentDescription" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/toolbar_image_panel_top"
+            android:layout_width="match_parent"
+            android:layout_height="125dp" />
+
+        <FrameLayout
+            android:id="@+id/toolbar_image_panel_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:tag="sticky-hastransparancy-nonconstant">
+
+            <TextView
+                android:id="@+id/toolbar_image_title"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="28dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:paddingEnd="44dp"
+                android:paddingRight="44dp"
+                android:paddingBottom="16dp"
+                android:shadowColor="@android:color/black"
+                android:shadowRadius="16"
+               />
+
+        </FrameLayout>
+    </LinearLayout>
+</FrameLayout>

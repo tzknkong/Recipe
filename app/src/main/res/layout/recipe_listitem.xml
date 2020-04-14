@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.alfonz.view.SelectorRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recipe_list_item"
+    android:layout_width="match_parent"
+    android:layout_height="192dp"
+    android:minHeight="192dp"
+    android:listSelector="@drawable/selector_clickable_item_bg_inverse">
+
+    <ImageView
+        android:id="@+id/recipe_list_item_image"
+        android:layout_width="match_parent"
+        android:layout_height="192dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/recipe_list_item_image_description" />
+
+    <TextView
+        android:id="@+id/recipe_list_item_name"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="8dp"
+        android:textColor="@color/colorPrimary"
+        android:fontFamily="sans-serif"
+        android:background="#88000000"
+        android:maxLines="3"
+        android:ellipsize="end" />
+
+</org.alfonz.view.SelectorRelativeLayout>
