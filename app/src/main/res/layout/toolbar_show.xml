@@ -46,8 +46,19 @@
                 android:paddingRight="44dp"
                 android:paddingBottom="16dp"
                 android:shadowColor="@android:color/black"
-                android:shadowRadius="16"
-               />
+                android:shadowRadius="16" />
+
+            <TextView
+                android:id="@+id/toolbar_image_category"
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="25dp"
+                android:layout_marginBottom="5dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:shadowColor="@android:color/black"
+                android:shadowRadius="16" />
 
         </FrameLayout>
     </LinearLayout>

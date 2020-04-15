@@ -25,7 +25,7 @@ public class FragmentAbout extends Fragment {
 
     Integer[] imageId = {
             R.drawable.ic_other_appname,
-            R.drawable.ic_other_build,
+            R.drawable.ic_about,
             R.drawable.ic_other_email,
             R.drawable.ic_other_privacy
 

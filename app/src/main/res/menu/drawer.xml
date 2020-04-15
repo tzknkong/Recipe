@@ -22,6 +22,11 @@
             android:title="@string/favorite" />
 
         <item
+            android:id="@+id/drawer_Login"
+            android:icon="@drawable/log"
+            android:title="@string/Login" />
+
+        <item
                 android:id="@+id/drawer_about"
                 android:title="@string/about"
                 android:icon="@drawable/ic_about"

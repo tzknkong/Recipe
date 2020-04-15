@@ -3,6 +3,7 @@
     <string name="drawer_recipes">Recipes</string>
     <string name="drawer_category">Category</string>
     <string name="drawer_favorite">Favorite</string>
+    <string name="drawer_Login">Login</string>
     <string name="drawer_about">About</string>
 
     <string name="recipe_list_item_image_description">Recipe picture</string>
@@ -10,8 +11,11 @@
     <string name="drawer_close">Close navigation </string>
     <string name="search">Search</string>
     <string name="main">Main</string>
+    <string name="Login">Login</string>
     <string name="category">Category</string>
     <string name="favorite">favorite</string>
     <string name="about">About</string>
+    <string name="visitor">Visitor</string>
+    <string name="user_name">DessertBook</string>
 
 </resources>

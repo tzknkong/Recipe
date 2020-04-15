@@ -19,9 +19,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
+import android.widget.TextView;
 
-
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.android.material.navigation.NavigationView;
+
+
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private final static String RECIPE_FRAGMENT_TAG = "Recipe";
@@ -34,6 +41,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private android.widget.SearchView sv;
+    TextView uemail,uname;
+    FirebaseDatabase firebase;
+    String useemail,usename;
+    private FirebaseAuth fAuth;
+    private DatabaseReference fDatabase;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +56,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
         drawerLayout = (DrawerLayout) findViewById(R.id.main_drawer_layout);
+        uemail = findViewById(R.id.uemail);
+        uname = findViewById(R.id.uname);
+        fAuth = FirebaseAuth.getInstance();
+        fDatabase = FirebaseDatabase.getInstance().getReference();
+
+        FirebaseUser fuser = fAuth.getCurrentUser();
 
 
-
-
-
-
+        setUserNE(fuser);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container_drawer_content,
                 new FragmentRecipe(), RECIPE_FRAGMENT_TAG).commit();
@@ -63,8 +79,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar.setTitle(R.string.app_name);
         setupNavigationDrawer(toolbar);
     }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+    public void setUserNE(FirebaseUser fuser){
+
+        if (fuser != null) {
+            useemail = fuser.getEmail();
+            usename = fuser.getDisplayName();
+
+            uemail.setText(useemail);
+            uname.setText(usename);
+        }
+    }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -113,6 +140,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
 
+            case R.id.drawer_Login:
+                if (!menuItem.isChecked()) {
+
+                    Intent intent = new Intent(MainActivity.this, Login.class);
+                    startActivity(intent);
+
+                }
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
 
             case R.id.drawer_about:
                 if (!menuItem.isChecked()) {
@@ -158,9 +194,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (Config.ENABLE_EXIT_DIALOG) {
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                dialog.setIcon(R.mipmap.ic_launcher);
+                dialog.setIcon(R.mipmap.bakeicon);
                 dialog.setTitle(R.string.app_name);
                 dialog.setMessage("Want to exit?");
+
                 final AlertDialog d = dialog.show();
                 dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -185,14 +222,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
 
 }
