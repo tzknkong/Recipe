@@ -33,6 +33,8 @@
             android:name="com.example.recipe.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="DessertBook"
+            android:requestLegacyExternalStorage="true"
+            android:usesCleartextTraffic="true"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,13 +45,18 @@
             android:name="com.example.recipe.Login"
            />
 
+        <activity
+            android:name="com.example.recipe.upload_recipe"
+            />
 
 
         <activity
             android:name="com.example.recipe.CreateAc"
              />
 
-
+        <activity
+            android:name="com.example.recipe.DetailRecipe"
+            />
 
 
 

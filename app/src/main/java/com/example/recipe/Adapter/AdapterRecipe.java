@@ -3,111 +3,143 @@ package com.example.recipe.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.recipe.DetailRecipe;
 import com.example.recipe.FragmentRecipe;
 import com.example.recipe.Model.Recipe;
 import com.example.recipe.R;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 
+import java.io.File;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class AdapterRecipe extends RecyclerView.Adapter<AdapterRecipe.ViewHolder>{
 
-    private Context context;
-    private Recipe recipeList;
+public class AdapterRecipe extends RecyclerView.Adapter<RecipeViewHolder>{
 
-    ArrayList<Recipe> datasource = new ArrayList<>();
-    ViewHolder viewHolder;
-    int posit;
-    private final int VIEW_TYPE_ITEM = 0;
-    private final int VIEW_TYPE_LOADING = 1;
+    private Context acontext;
+    private int lastPosition = -1;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageview;
-        TextView title,time,category;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            imageview = (ImageView) itemView.findViewById(R.id.toolbar_imageview);
-            title = (TextView) itemView.findViewById(R.id.toolbar_image_title);
-            time = (TextView) itemView.findViewById(R.id.instruction_time);
-            category= (TextView) itemView.findViewById(R.id.toolbar_image_category);
+    List<Recipe> recipeList = new ArrayList<>();
+    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getLayoutPosition();
-                    Intent ii = new Intent(context, FragmentRecipe.class);
-                    ii.putExtra("wid",datasource.get(position).getRecipe_id());
-                    ii.putExtra("title",datasource.get(position).getTitle());
-                    ii.putExtra("img_url",datasource.get(position).getImg_url());
-                    ii.putExtra("time",datasource.get(position).getTime());
-                    ii.putExtra("steps",datasource.get(position).getSteps());
-                    ii.putExtra("category",datasource.get(position).getCategory_name());
-                    context.startActivity(ii);
-                }
-            });
+
+
+    public AdapterRecipe(Context context,  List<Recipe> arecipeList) {
+        acontext = context;
+        recipeList = arecipeList;
+    }
+
+
+
+    @NonNull
+    public RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_listitem, parent, false);
+
+
+        return new RecipeViewHolder(itemView);
+
+    }
+
+
+
+    public void onBindViewHolder( final RecipeViewHolder recipeViewHolder, int i) {
+        //String uriimage = recipeList.get(i).getImg_url().toString();
+        Uri uri = Uri.parse(recipeList.get(i).getImg_url());
+
+        Glide.with(acontext)
+                .load(uri)
+                .placeholder(R.drawable.placeholder)
+                .centerCrop()
+                .into(recipeViewHolder.imageView);
+
+        // foodViewHolder.imageView.setImageResource(myFoodList.get(i).getItemImage());
+        recipeViewHolder.rname.setText(recipeList.get(i).getrecipe_Name());
+        recipeViewHolder.imageView.setImageURI(uri);
+
+        recipeViewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Intent intent = new Intent(acontext, DetailRecipe.class);
+                intent.putExtra("RecipeImage",recipeList.get(recipeViewHolder.getAdapterPosition()).getImg_url());
+                intent.putExtra("RecipeName",recipeList.get(recipeViewHolder.getAdapterPosition()).getrecipe_Name());
+
+
+                acontext.startActivity(intent);
+
+
+            }
+        });
+
+
+        setAnimation(recipeViewHolder.itemView,i);
+
+    }
+
+    public void setAnimation(View viewToAnimate, int position ){
+
+        if(position> lastPosition){
+
+            ScaleAnimation animation = new ScaleAnimation(0.0f,1.0f,0.0f,1.0f,
+                    Animation.RELATIVE_TO_SELF,0.5f,
+                    Animation.RELATIVE_TO_SELF,0.5f);
+            animation.setDuration(500);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+
+
         }
-    }
 
 
-
-
-
-    public AdapterRecipe(Context context,  ArrayList<Recipe> datasource,int position) {
-        this.context = context;
-        this.datasource = datasource;
-        posit = position;
-    }
-
-
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_list, parent, false);
-
-
-        return new ViewHolder(itemView);
 
     }
-
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public int getItemCount() { return recipeList.size(); }
+
+
+    public void filteredList(ArrayList<Recipe> filterList) {
+
+        recipeList = filterList;
+        notifyDataSetChanged();
+    }
+}
+
+class RecipeViewHolder extends RecyclerView.ViewHolder{
+
+    ImageView imageView;
+    TextView rname;
+
+    public RecipeViewHolder( View itemView) {
+        super(itemView);
+        imageView = itemView.findViewById(R.id.recipe_list_item_image);
+        rname = itemView.findViewById(R.id.recipe_list_item_name);
 
 
     }
-
-    @Override
-    public int getItemCount() {
-        if (datasource == null)
-            return 0;
-        else
-            return datasource.size();
-    }
-
-
-
-    public class LoadingViewHolder extends RecyclerView.ViewHolder {
-        public ProgressBar progressBar;
-
-        public LoadingViewHolder(View itemView) {
-            super(itemView);
-            progressBar = (ProgressBar) itemView.findViewById(R.id.progressBar);
-            progressBar.getIndeterminateDrawable().setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.SRC_ATOP);
-        }
-    }
-
 
 }

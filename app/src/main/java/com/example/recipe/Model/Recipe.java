@@ -1,71 +1,51 @@
 package com.example.recipe.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Recipe {
-    private  String title,img_url,recipe_id,category,steps,category_name;
+    @SerializedName("img_url")
+    private  String recipe_Name,category,ingredients,instruction,img_url;
     private Long time;
-    int bid;
 
-    public String getCategory_name() {
-        return category_name;
+
+
+    public Recipe() {
+
     }
 
-    public void setCategory_name(String category_name) {
-        this.category_name = category_name;
-    }
 
-    public int getBid() {
-        return bid;
-    }
 
-    public void setBid(int bid) {
-        this.bid = bid;
+    public void setrecipe_Name(String recipe_Name) {
+        this.recipe_Name = recipe_Name;
     }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getImg_url() {
-        return img_url;
-    }
-
     public void setImg_url(String img_url) {
         this.img_url = img_url;
     }
-
-    public Long getTime() {
-        return time;
-    }
-
     public void setTime(Long time) {
         this.time = time;
     }
-
-    public String getRecipe_id() {
-        return recipe_id;
-    }
-
-    public void setRecipe_id(String recipe_id) {
-        this.recipe_id = recipe_id;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
     public void setCategory(String category) {
         this.category = category;
     }
+    public void setIngredients(String ingredients){this.ingredients = ingredients;}
+    public void setInstruction(String instruction){this.instruction = instruction;}
 
-    public String getSteps() {
-        return steps;
+
+    public String getCategory() { return category; }
+    public String getIngredients() {
+        return ingredients;
+    }
+    public String getInstruction() {
+        return instruction;
+    }
+    public Long getTime() {
+        return time;
+    }
+    public String getImg_url() {
+        return img_url;
+    }
+    public String getrecipe_Name() {
+        return recipe_Name;
     }
 
-    public void setSteps(String steps) {
-        this.steps = steps;
-    }
 }

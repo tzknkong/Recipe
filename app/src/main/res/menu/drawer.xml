@@ -23,7 +23,7 @@
 
         <item
             android:id="@+id/drawer_Login"
-            android:icon="@drawable/log"
+            android:icon="@drawable/user"
             android:title="@string/Login" />
 
         <item
@@ -32,6 +32,11 @@
                 android:icon="@drawable/ic_about"
                 android:orderInCategory="2"
                 app:showAsAction="never" />
+
+        <item
+            android:id="@+id/drawer_add"
+            android:icon="@drawable/addrecipe"
+            android:title="@string/add" />
 
 
 

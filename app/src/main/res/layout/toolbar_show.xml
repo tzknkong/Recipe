@@ -8,7 +8,7 @@
     <ImageView
         android:id="@+id/toolbar_imageview"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="200dp"
         android:layout_gravity="bottom"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
@@ -16,7 +16,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="200dp"
         android:orientation="vertical">
 
         <View
@@ -27,12 +27,12 @@
         <FrameLayout
             android:id="@+id/toolbar_image_panel_bottom"
             android:layout_width="match_parent"
-            android:layout_height="125dp"
+            android:layout_height="80dp"
             android:tag="sticky-hastransparancy-nonconstant">
 
             <TextView
                 android:id="@+id/toolbar_image_title"
-                android:layout_width="wrap_content"
+                android:layout_width="110dp"
                 android:layout_height="42dp"
                 android:layout_gravity="bottom"
                 android:layout_marginStart="28dp"

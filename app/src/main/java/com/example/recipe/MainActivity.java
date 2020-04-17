@@ -1,33 +1,39 @@
 package com.example.recipe;
 
-import androidx.appcompat.app.ActionBar;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SearchView;
 import android.widget.TextView;
 
-import com.google.firebase.auth.AuthResult;
+import com.example.recipe.Adapter.AdapterRecipe;
+import com.example.recipe.Model.Recipe;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -35,47 +41,91 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private final static String FAVORITE_FRAGMENT_TAG = "favorite";
     private final static String ABOUT_FRAGMENT_TAG = "About";
 
+    @BindView(R.id.layout_toolbar)Toolbar toolbar;
+    @BindView(R.id.navigation_view)NavigationView navigationView;
+    @BindView(R.id.main_drawer_layout) DrawerLayout drawerLayout;
+    TextView uemail;
+    TextView uname;
+    RecyclerView recyclerView;
 
-    private Toolbar toolbar;
-    private NavigationView navigationView;
-    private DrawerLayout drawerLayout;
-    private ActionBarDrawerToggle actionBarDrawerToggle;
-    private android.widget.SearchView sv;
-    TextView uemail,uname;
-    FirebaseDatabase firebase;
+
+    ArrayList<Recipe> reipelist;
+    AdapterRecipe recipeadapter;
     String useemail,usename;
+    FirebaseDatabase firebase;
     private FirebaseAuth fAuth;
     private DatabaseReference fDatabase;
 
+    ActionBarDrawerToggle actionBarDrawerToggle;
+    android.widget.SearchView sv;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        ButterKnife.bind(this);
+        uemail = findViewById(R.id.txt_uemail) ;
+        uname = findViewById(R.id.txt_uname) ;
+        recyclerView = findViewById(R.id.rv_recipe);
+
         navigationView.setNavigationItemSelectedListener(this);
-        drawerLayout = (DrawerLayout) findViewById(R.id.main_drawer_layout);
-        uemail = findViewById(R.id.uemail);
-        uname = findViewById(R.id.uname);
+
+
         fAuth = FirebaseAuth.getInstance();
         fDatabase = FirebaseDatabase.getInstance().getReference();
 
         FirebaseUser fuser = fAuth.getCurrentUser();
 
 
-        setUserNE(fuser);
-
         getSupportFragmentManager().beginTransaction().replace(R.id.container_drawer_content,
                 new FragmentRecipe(), RECIPE_FRAGMENT_TAG).commit();
 
         setupToolbar();
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        reipelist = new ArrayList<>();
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        fDatabase = FirebaseDatabase.getInstance().getReference("Recipe");
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this,1);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setAdapter(recipeadapter);
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+         fDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                reipelist.clear();
+
+                for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
+                    Recipe recipe = itemSnapshot.getValue(Recipe.class);
+                    reipelist.add(recipe);
+                }
+                recipeadapter = new AdapterRecipe(MainActivity.this,reipelist);
+                recyclerView.setAdapter(recipeadapter);
+                recipeadapter.notifyDataSetChanged();
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void setupToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.layout_toolbar);
+
         toolbar.setTitle(R.string.app_name);
         setupNavigationDrawer(toolbar);
     }
@@ -161,6 +211,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
 
+            case R.id.drawer_add:
+                if (!menuItem.isChecked()) {
+
+                    Intent intent = new Intent(MainActivity.this, upload_recipe.class);
+                    startActivity(intent);
+
+                }
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+
+
 
         }
         return false;
@@ -222,5 +283,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 }

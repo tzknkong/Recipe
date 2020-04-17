@@ -10,20 +10,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.recipe.Model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class CreateAc extends AppCompatActivity {
@@ -42,7 +33,7 @@ public class CreateAc extends AppCompatActivity {
         Emailcreate = findViewById(R.id.Email_create);
         Password = findViewById(R.id.Password_Create);
         Password2 = findViewById(R.id.Password_2_Create);
-        register = findViewById(R.id.Register_btn);
+        register = findViewById(R.id.btn_register);
         pb = findViewById(R.id.progressBar);
         lDatabase = FirebaseDatabase.getInstance().getReference();
 
