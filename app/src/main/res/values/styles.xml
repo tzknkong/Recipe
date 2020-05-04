@@ -3,7 +3,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@android:color/background_light</item>
+        <item name="colorAccent">@android:color/primary_text_light_nodisable</item>
     </style>
 
     <style name="Headline" parent="TextAppearance.AppCompat.Headline">
@@ -19,6 +19,6 @@
     </style>
 
     <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:colorAccent">#0C0C0C</item>
+        <item name="android:colorAccent">#151414</item>
     </style>
 </resources>

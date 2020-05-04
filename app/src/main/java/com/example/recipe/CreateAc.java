@@ -44,7 +44,7 @@ public class CreateAc extends AppCompatActivity {
 
             String email = Emailcreate.getText().toString().trim();
             String pw = Password.getText().toString().trim();
-            String n = name.getText().toString().trim();
+
 
             if(TextUtils.isEmpty(email)){
                 Emailcreate.setError("Email is required");

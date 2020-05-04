@@ -4,4 +4,8 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="global_color_control_highlight">#40000000</color>
     <color name="global_color_clickable_inverse">#aaffffff</color>
+    <color name="colorbackg">#FFF06B</color>
+    <color name="fabcolor">#FFFFFF</color>
+    <color name="fabbgcolor">#3CBDE8</color>
+
 </resources>

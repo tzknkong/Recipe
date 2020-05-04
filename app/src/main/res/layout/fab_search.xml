@@ -9,6 +9,8 @@
     android:layout_margin="16dp"
     android:layout_gravity="bottom|end"
     android:elevation="20dp"
+    app:tint="@color/fabcolor"
+    app:backgroundTint="@color/fabbgcolor"
     app:srcCompat="@drawable/camera512"
     app:fabSize="normal"
     tools:ignore="UnusedAttribute" />

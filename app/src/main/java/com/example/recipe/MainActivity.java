@@ -1,21 +1,18 @@
 package com.example.recipe;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,15 +20,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.recipe.Adapter.AdapterRecipe;
+import com.example.recipe.Fragment.FragmentAbout;
+import com.example.recipe.Fragment.FragmentFavor;
+import com.example.recipe.Fragment.FragmentRecipe;
 import com.example.recipe.Model.Recipe;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -68,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         uemail = findViewById(R.id.txt_uemail) ;
         uname = findViewById(R.id.txt_uname) ;
         recyclerView = findViewById(R.id.rv_recipe);
+        FloatingActionButton fab = findViewById(R.id.fab);
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -77,53 +77,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         FirebaseUser fuser = fAuth.getCurrentUser();
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                startActivity(intent);
+            }
+        });
+
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container_drawer_content,
                 new FragmentRecipe(), RECIPE_FRAGMENT_TAG).commit();
 
         setupToolbar();
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        reipelist = new ArrayList<>();
-
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        fDatabase = FirebaseDatabase.getInstance().getReference("Recipe");
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this,1);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.setAdapter(recipeadapter);
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////////
-
-         fDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                reipelist.clear();
-
-                for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
-                    Recipe recipe = itemSnapshot.getValue(Recipe.class);
-                    reipelist.add(recipe);
-                }
-                recipeadapter = new AdapterRecipe(MainActivity.this,reipelist);
-                recyclerView.setAdapter(recipeadapter);
-                recipeadapter.notifyDataSetChanged();
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
 
     }
+ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void setupToolbar() {
 
         toolbar.setTitle(R.string.app_name);

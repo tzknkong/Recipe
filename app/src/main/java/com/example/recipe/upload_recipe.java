@@ -34,7 +34,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class upload_recipe extends AppCompatActivity {
     ImageView recipeImage;
     Uri uri;
-    EditText recipename,recipecategory,recipetime,recipeingredients,recipeinstruction;
+    EditText recipename, recipecategory, recipetime, recipeingredients, recipeinstruction;
     String imageUrl;
     Recipe recipe;
     DatabaseReference reff;
@@ -50,26 +50,33 @@ public class upload_recipe extends AppCompatActivity {
         rst = FirebaseStorage.getInstance().getReference().child("RecipeImage");
 
 
-        recipeImage = (ImageView)findViewById(R.id.iv_foodImage);
-        recipename = (EditText)findViewById(R.id.recipe_name);
-        recipecategory = (EditText)findViewById(R.id.recipe_category);
-        recipetime = (EditText)findViewById(R.id.recipe_time);
-        recipeingredients = (EditText)findViewById(R.id.recipe_ingredients_txt);
-        recipeinstruction = (EditText)findViewById(R.id.recipe_instruction_txt);
+        recipeImage = (ImageView) findViewById(R.id.iv_foodImage);
+        recipename = (EditText) findViewById(R.id.recipe_name);
+        recipecategory = (EditText) findViewById(R.id.recipe_category);
+        recipetime = (EditText) findViewById(R.id.recipe_time);
+        recipeingredients = (EditText) findViewById(R.id.recipe_ingredients_txt);
+        recipeinstruction = (EditText) findViewById(R.id.recipe_instruction_txt);
         upload = findViewById(R.id.btn_uploadR);
-
 
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Long t = Long.parseLong(recipetime.getText().toString().trim());
+                Integer t = Integer.parseInt(recipetime.getText().toString().trim());
 
+                if (recipename != null && recipecategory != null && recipetime != null && recipeingredients != null && recipeinstruction != null ) {
+                    recipe.setrecipe_Name(recipename.getText().toString().trim());
+                    recipe.setCategory(recipecategory.getText().toString().trim());
+                    recipe.setIngredients(recipeingredients.getText().toString());
+                    recipe.setInstruction(recipeinstruction.getText().toString());
+                    recipe.setTime(t);
 
 
                     uploadfile();
-                    startActivity(new Intent(upload_recipe.this, upload_recipe.class));
-
+                    finish();
+                } else {
+                    Toast.makeText(upload_recipe.this, "you have input all information", Toast.LENGTH_LONG).show();
+                }
 
             }
         });
@@ -77,27 +84,25 @@ public class upload_recipe extends AppCompatActivity {
     }
 
 
-
     public void btnSelectImage(View view) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
-        startActivityForResult(intent,1);
+        startActivityForResult(intent, 1);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
             uri = data.getData();
             recipeImage.setImageURI(uri);
 
-        }
-        else Toast.makeText(this, "Please pick a image", Toast.LENGTH_SHORT).show();
+        } else Toast.makeText(this, "Please pick a image", Toast.LENGTH_SHORT).show();
 
     }
 
-    public void uploadfile(){
+    public void uploadfile() {
 
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("RecipeImage").child(uri.getLastPathSegment());
 
@@ -109,69 +114,54 @@ public class upload_recipe extends AppCompatActivity {
 
             // Defining the child of storageReference
             StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
-            Long t = Long.parseLong(recipetime.getText().toString().trim());
 
 
-            if( recipename != null && recipecategory != null && recipetime != null && recipeingredients != null && recipeinstruction != null && recipeImage != null) {
+            // adding listeners on upload
+            // or failure of image
+            ref.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    // Image uploaded successfully
+                    // Dismiss dialog
+
+                    recipe.setImg_uri(uri.toString());
+
+                    String uploadid = reff.push().getKey();
 
 
-                // adding listeners on upload
-                // or failure of image
-                ref.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    reff.child(uploadid).setValue(recipe);
+                    Toast.makeText(upload_recipe.this, "upload successful", Toast.LENGTH_LONG).show();
 
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    progressDialog.dismiss();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
 
-                        // Image uploaded successfully
-                        // Dismiss dialog
-                        recipe.setrecipe_Name(recipename.getText().toString().trim());
-                        recipe.setCategory(recipecategory.getText().toString().trim());
-                        recipe.setIngredients(recipeingredients.getText().toString());
-                        recipe.setInstruction(recipeinstruction.getText().toString());
-                        recipe.setTime(t);
-                        recipe.setImg_url(taskSnapshot.getStorage().getDownloadUrl().toString());
+                    // Error, Image not uploaded
+                    progressDialog.dismiss();
+                    Toast.makeText(upload_recipe.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
 
-                        String uploadid = reff.push().getKey();
-
-
-                        reff.child(uploadid).setValue(recipe);
-                        Toast.makeText(upload_recipe.this, "upload successful", Toast.LENGTH_LONG).show();
-
-                        progressDialog.dismiss();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                        // Error, Image not uploaded
-                        progressDialog.dismiss();
-                        Toast.makeText(upload_recipe.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-
-                    // Progress Listener for loading
-                    // percentage on the dialog box
-                    @Override
-                    public void onProgress(
-                            UploadTask.TaskSnapshot taskSnapshot)
-                    {
-                        double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                        progressDialog.setMessage("Uploaded " + (int)progress + "%");
-                    }
-                });
-
-
-            }else{
-                Toast.makeText(upload_recipe.this, "you have input all information", Toast.LENGTH_LONG).show();
-            }
-
-
+                // Progress Listener for loading
+                // percentage on the dialog box
+                @Override
+                public void onProgress(
+                        UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                    progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                }
+            });
 
 
         }
     }
+}
 
-    }
+
 
 
 

@@ -11,10 +11,7 @@
             android:icon="@drawable/bakingicon"
             android:title="@string/main" />
 
-        <item
-            android:id="@+id/drawer_category"
-            android:icon="@drawable/ic_category"
-            android:title="@string/category" />
+
 
         <item
             android:id="@+id/drawer_favorite"

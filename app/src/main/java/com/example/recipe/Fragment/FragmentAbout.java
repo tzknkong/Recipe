@@ -1,4 +1,4 @@
-package com.example.recipe;
+package com.example.recipe.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.recipe.Adapter.AdapterAbout;
+import com.example.recipe.MainActivity;
+import com.example.recipe.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 import androidx.annotation.Nullable;
@@ -49,8 +52,6 @@ public class FragmentAbout extends Fragment {
 
         toolbar = (Toolbar) rootView.findViewById(R.id.layout_toolbar);
 
-
-
         titleId = getResources().getStringArray(R.array.title);
         subtitleId = getResources().getStringArray(R.array.subtitle);
 
@@ -59,6 +60,7 @@ public class FragmentAbout extends Fragment {
         list.setAdapter(adapter);
 
         setupToolbar();
+        showFloatingActionButton(false);
 
         return rootView;
     }
@@ -77,5 +79,14 @@ public class FragmentAbout extends Fragment {
     private void setupToolbar() {
 
         mainActivity.setSupportActionBar(toolbar);
+    }
+
+    private void showFloatingActionButton(boolean visible) {
+        final FloatingActionButton fab = getActivity().findViewById(R.id.fab);
+        if (visible) {
+            fab.show();
+        } else {
+            fab.hide();
+        }
     }
 }

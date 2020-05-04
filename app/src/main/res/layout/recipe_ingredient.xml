@@ -4,76 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/recipe_detail_ingredients"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     app:cardBackgroundColor="#ffffff"
     app:cardCornerRadius="2dp"
     app:cardElevation="2dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:orientation="vertical"
-        >
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:padding="16dp"
-            android:text="Instruction"
-            android:textAppearance="@style/Headline" />
-
-
-        <TextView
-            android:id="@+id/recipe_detail_instruction_text"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:padding="16dp"
-            android:textColor="#8a000000"
-            android:textSize="14sp" />
-
-        <View
-            android:id="@+id/recipe_detail_intro_divider"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/dividerHorizontal" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="16dp">
-
-            <TextView
-                android:id="@+id/instruction_time"
-                android:layout_width="10dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/selector_clickable_item_bg"
-                android:gravity="center"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
-
-
-            <TextView
-                android:id="@+id/instruction_calories"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/selector_clickable_item_bg"
-                android:gravity="center"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="318dp"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"

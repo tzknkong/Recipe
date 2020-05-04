@@ -8,9 +8,4 @@
     android:layout_height="55dp"
     android:background="#2196F3"
     android:elevation="4dp"
-    >
-
-
-
-
-</androidx.appcompat.widget.Toolbar>
+    />

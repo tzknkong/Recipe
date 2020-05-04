@@ -2,8 +2,6 @@ package com.example.recipe.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,23 +9,23 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.recipe.DetailRecipe;
-import com.example.recipe.FragmentRecipe;
 import com.example.recipe.Model.Recipe;
 import com.example.recipe.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 
-import java.io.File;
-import java.net.URI;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,10 +37,15 @@ public class AdapterRecipe extends RecyclerView.Adapter<RecipeViewHolder>{
 
     private Context acontext;
     private int lastPosition = -1;
+    FirebaseAuth fauth;
+    FirebaseDatabase fDb;
+    DatabaseReference databaseReference;
+    DatabaseReference dburi;
+    String currentuser;
 
 
     List<Recipe> recipeList = new ArrayList<>();
-    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+
 
 
 
@@ -57,6 +60,12 @@ public class AdapterRecipe extends RecyclerView.Adapter<RecipeViewHolder>{
     public RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_listitem, parent, false);
+        fauth = FirebaseAuth.getInstance();
+        fDb = FirebaseDatabase.getInstance();
+        databaseReference = fDb.getReference("Recipe");
+        dburi = fDb.getReferenceFromUrl("https://recipe-efc7f.firebaseio.com/Recipe");
+       // currentuser = fauth.getCurrentUser().getUid();
+
 
 
         return new RecipeViewHolder(itemView);
@@ -66,18 +75,34 @@ public class AdapterRecipe extends RecyclerView.Adapter<RecipeViewHolder>{
 
 
     public void onBindViewHolder( final RecipeViewHolder recipeViewHolder, int i) {
-        //String uriimage = recipeList.get(i).getImg_url().toString();
-        Uri uri = Uri.parse(recipeList.get(i).getImg_url());
 
-        Glide.with(acontext)
-                .load(uri)
-                .placeholder(R.drawable.placeholder)
-                .centerCrop()
-                .into(recipeViewHolder.imageView);
+
+
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Recipe recipe = dataSnapshot.getValue(Recipe.class);
+
+                Picasso.with(acontext)
+                        .load(recipe.getImg_uri())
+                        .placeholder(R.drawable.placeholder)
+                        .centerCrop()
+                        .into(recipeViewHolder.imageView);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
 
         // foodViewHolder.imageView.setImageResource(myFoodList.get(i).getItemImage());
         recipeViewHolder.rname.setText(recipeList.get(i).getrecipe_Name());
-        recipeViewHolder.imageView.setImageURI(uri);
 
         recipeViewHolder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,9 +110,12 @@ public class AdapterRecipe extends RecyclerView.Adapter<RecipeViewHolder>{
 
 
                 Intent intent = new Intent(acontext, DetailRecipe.class);
-                intent.putExtra("RecipeImage",recipeList.get(recipeViewHolder.getAdapterPosition()).getImg_url());
-                intent.putExtra("RecipeName",recipeList.get(recipeViewHolder.getAdapterPosition()).getrecipe_Name());
-
+                intent.putExtra("img_url",recipeList.get(recipeViewHolder.getAdapterPosition()).getImg_uri());
+                intent.putExtra("recipe_Name",recipeList.get(recipeViewHolder.getAdapterPosition()).getrecipe_Name());
+                intent.putExtra("time",recipeList.get(recipeViewHolder.getAdapterPosition()).getTime());
+                intent.putExtra("instruction",recipeList.get(recipeViewHolder.getAdapterPosition()).getInstruction());
+                intent.putExtra("ingredients",recipeList.get(recipeViewHolder.getAdapterPosition()).getIngredients());
+                intent.putExtra("category",recipeList.get(recipeViewHolder.getAdapterPosition()).getCategory());
 
                 acontext.startActivity(intent);
 
