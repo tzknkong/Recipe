@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DessertBook</string>
+    <string name="drawer_recipes">食譜</string>
+    <string name="drawer_category">分類</string>
+    <string name="drawer_favorite">收藏食譜</string>
+    <string name="drawer_Login">登入</string>
+    <string name="drawer_about">關於</string>
+    <string name="drawer_setting">設定</string>
+
+    <string name="recipe_list_item_image_description">食譜圖片</string>
+    <string name="drawer_open">Open navigation </string>
+    <string name="drawer_close">Close navigation </string>
+    <string name="search">搜尋</string>
+    <string name="main">主頁</string>
+    <string name="Login">登入</string>
+    <string name="category">分類</string>
+    <string name="favorite">收藏食譜</string>
+    <string name="about">關於</string>
+    <string name="visitor">訪客</string>
+    <string name="user_name">DessertBook</string>
+    <string name="add">上載食譜</string>
+    <string name="register_email">電郵</string>
+    <string name="register_password">密碼</string>
+    <string name="register_login">登入</string>
+    <string name="register_create">注冊用戶</string>
+    <string name="register">注冊</string>
+    <string name="confirm_password">確認密碼</string>
+    <string name="setting_logout">登出</string>
+    <string name="setting_change_language">轉換語言</string>
+    <string name="ingredients">材料</string>
+    <string name="instruction">步驟</string>
+    <string name="dessertname">甜品名稱</string>
+    <string name="time">時間</string>
+    <string name="select_image">上載圖片</string>
+
+</resources>

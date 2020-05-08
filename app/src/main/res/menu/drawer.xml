@@ -9,7 +9,7 @@
         <item
             android:id="@+id/drawer_main"
             android:icon="@drawable/bakingicon"
-            android:title="@string/main" />
+            android:title="@string/drawer_recipes" />
 
 
 
@@ -34,6 +34,13 @@
             android:id="@+id/drawer_add"
             android:icon="@drawable/addrecipe"
             android:title="@string/add" />
+
+        <item
+                android:id="@+id/drawer_setting"
+                android:icon="@drawable/seeting"
+                android:title="@string/drawer_setting"
+                />
+
 
 
 

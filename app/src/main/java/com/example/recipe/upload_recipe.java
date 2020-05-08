@@ -65,6 +65,7 @@ public class upload_recipe extends AppCompatActivity {
                 Integer t = Integer.parseInt(recipetime.getText().toString().trim());
 
                 if (recipename != null && recipecategory != null && recipetime != null && recipeingredients != null && recipeinstruction != null ) {
+
                     recipe.setrecipe_Name(recipename.getText().toString().trim());
                     recipe.setCategory(recipecategory.getText().toString().trim());
                     recipe.setIngredients(recipeingredients.getText().toString());
@@ -125,16 +126,20 @@ public class upload_recipe extends AppCompatActivity {
 
                     // Image uploaded successfully
                     // Dismiss dialog
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                    recipe.setImg_uri(uri.toString());
+                    ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            recipe.setImg_uri(uri.toString());
+                            String uploadid = reff.push().getKey();
+                            reff.child(uploadid).setValue(recipe);
+                        }
+                    });
 
-                    String uploadid = reff.push().getKey();
-
-
-                    reff.child(uploadid).setValue(recipe);
                     Toast.makeText(upload_recipe.this, "upload successful", Toast.LENGTH_LONG).show();
 
-                    progressDialog.dismiss();
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

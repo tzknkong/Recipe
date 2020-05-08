@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.recipe.Adapter.AdapterLogin;
 import com.example.recipe.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,8 +23,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class Login extends AppCompatActivity implements View.OnClickListener {
+public class Login extends AppCompatActivity  {
 
     private static final String TAG = "EmailPassword";
     private EditText email;
@@ -31,7 +34,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth fAuth;
     private Button btnlogin,btnCreateAccount;
     private DatabaseReference fDatabase;
-
+    RecyclerView recyclerView;
+    AdapterLogin adapterLogin;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +48,26 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         fDatabase = FirebaseDatabase.getInstance().getReference();
         fAuth = FirebaseAuth.getInstance();
 
+
+
         if (fAuth.getCurrentUser() != null) {
             onAuthSuccess(fAuth.getCurrentUser());
         }
 
-        btnlogin.setOnClickListener(this);
-        btnCreateAccount.setOnClickListener(this);
+
+        btnlogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signIn();
+            }
+        });
+        btnCreateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this, CreateAc.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -69,7 +87,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                             if (task.isSuccessful()) {
                                 onAuthSuccess(task.getResult().getUser());
-
+                                Toast.makeText(Login.this, "Login Successful",
+                                        Toast.LENGTH_SHORT).show();
 
                             } else {
                                 Toast.makeText(Login.this, "Login Failed",
@@ -108,16 +127,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
 
-    @Override
-    public void onClick(View view) {
-        int i = view.getId();
-        if (i == R.id.btn_Login) {
-            signIn();
 
-        } else if (i == R.id.btn_CreateAccount) {
-            Intent intent = new Intent(Login.this, CreateAc.class);
-            startActivity(intent);
-        }
-    }
     }
 

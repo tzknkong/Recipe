@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
             android:padding="16dp"
-            android:text="Ingredients"
+            android:text="@string/ingredients"
             android:textAppearance="@style/Headline" />
 
         <TextView

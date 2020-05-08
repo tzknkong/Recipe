@@ -82,12 +82,12 @@ public class AdapterRecipe extends RecyclerView.Adapter<RecipeViewHolder>{
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Recipe recipe = dataSnapshot.getValue(Recipe.class);
+
 
                 Picasso.with(acontext)
-                        .load(recipe.getImg_uri())
+                        .load(recipeList.get(i).getImg_uri())
                         .placeholder(R.drawable.placeholder)
-                        .centerCrop()
+
                         .into(recipeViewHolder.imageView);
             }
 
@@ -116,6 +116,7 @@ public class AdapterRecipe extends RecyclerView.Adapter<RecipeViewHolder>{
                 intent.putExtra("instruction",recipeList.get(recipeViewHolder.getAdapterPosition()).getInstruction());
                 intent.putExtra("ingredients",recipeList.get(recipeViewHolder.getAdapterPosition()).getIngredients());
                 intent.putExtra("category",recipeList.get(recipeViewHolder.getAdapterPosition()).getCategory());
+
 
                 acontext.startActivity(intent);
 

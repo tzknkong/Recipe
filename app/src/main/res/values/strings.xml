@@ -5,6 +5,7 @@
     <string name="drawer_favorite">Favorite</string>
     <string name="drawer_Login">Login</string>
     <string name="drawer_about">About</string>
+    <string name="drawer_setting">Setting</string>
 
     <string name="recipe_list_item_image_description">Recipe picture</string>
     <string name="drawer_open">Open navigation </string>
@@ -18,5 +19,21 @@
     <string name="visitor">Visitor</string>
     <string name="user_name">DessertBook</string>
     <string name="add">Add</string>
+    <string name="register_email">Email</string>
+    <string name="register_password">Password</string>
+    <string name="register_login">Login</string>
+    <string name="register_create">CreateAccount</string>
+    <string name="register">Register</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="setting_logout">Logout</string>
+    <string name="setting_change_language">Change Language</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="instruction">Instruction</string>
+
+    <string name="dessertname">DessertName</string>
+    <string name="time">Time</string>
+    <string name="select_image">Select Image</string>
+    <string name="upload_recipe">Upload Recipe</string>
+
 
 </resources>

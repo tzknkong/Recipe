@@ -30,6 +30,8 @@
         android:gravity="center_vertical"
         android:maxLines="3"
         android:textColor="@color/colorPrimary"
+        android:textStyle="italic"
+        android:textSize="17sp"
         app:layout_constraintBottom_toTopOf="@+id/recipe_list_item_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

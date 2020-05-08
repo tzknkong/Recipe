@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,10 +20,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.recipe.Adapter.AdapterLogin;
 import com.example.recipe.Adapter.AdapterRecipe;
 import com.example.recipe.Fragment.FragmentAbout;
 import com.example.recipe.Fragment.FragmentFavor;
 import com.example.recipe.Fragment.FragmentRecipe;
+import com.example.recipe.Fragment.FragmentSetting;
 import com.example.recipe.Model.Recipe;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -39,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private final static String RECIPE_FRAGMENT_TAG = "Recipe";
     private final static String FAVORITE_FRAGMENT_TAG = "favorite";
     private final static String ABOUT_FRAGMENT_TAG = "About";
+    private final static String Setting_FRAGMENT_TAG = "Setting";
+
 
     @BindView(R.id.layout_toolbar)Toolbar toolbar;
     @BindView(R.id.navigation_view)NavigationView navigationView;
@@ -50,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     ArrayList<Recipe> reipelist;
     AdapterRecipe recipeadapter;
+    AdapterLogin adapterLogin;
     String useemail,usename;
     FirebaseDatabase firebase;
     private FirebaseAuth fAuth;
@@ -63,11 +69,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         ButterKnife.bind(this);
         uemail = findViewById(R.id.txt_uemail) ;
         uname = findViewById(R.id.txt_uname) ;
-        recyclerView = findViewById(R.id.rv_recipe);
         FloatingActionButton fab = findViewById(R.id.fab);
+        recyclerView = findViewById(R.id.rv_recipe);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerView.setAdapter(adapterLogin);
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -84,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
         });
+
 
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container_drawer_content,
@@ -165,7 +175,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.drawer_Login:
                 if (!menuItem.isChecked()) {
 
-                    Intent intent = new Intent(MainActivity.this, Login.class);
+
+                    Intent intent = new Intent(this, Login.class);
                     startActivity(intent);
 
                 }
@@ -193,6 +204,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
 
+            case R.id.drawer_setting:
+                if (!menuItem.isChecked()) {
+
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container_drawer_content,
+                            new FragmentSetting(), Setting_FRAGMENT_TAG).commit();
+
+                    toolbar.setTitle("Setting");
+
+                }
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
 
 
         }
@@ -255,7 +277,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
 }

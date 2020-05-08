@@ -35,8 +35,6 @@ public class AdapterFavor extends RecyclerView.Adapter<AdapterFavor.ViewHolder>{
 
             title = (TextView) view.findViewById(R.id.recipe_list_item_name);
             image = (ImageView) view.findViewById(R.id.recipe_list_item_image);
-
-
         }
 
     }

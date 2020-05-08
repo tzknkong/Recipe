@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="20"
-            android:hint="email"
+            android:hint="@string/register_email"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
             android:textSize="30sp" />
@@ -44,8 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="20"
-
-            android:hint="password"
+            android:hint="@string/register_password"
             android:importantForAutofill="no"
             android:inputType="textPassword"
             android:textSize="30sp" />
@@ -63,14 +62,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorbackg"
-            android:text="Login" />
+            android:text="@string/register_login" />
 
         <Button
             android:id="@+id/btn_CreateAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorbackg"
-            android:text="CreateAccount" />
+            android:text="@string/register_create" />
 
         <ProgressBar
             android:id="@+id/progressBar2"

@@ -19,7 +19,7 @@
             android:padding="16dp"
             android:textAppearance="@style/Headline"
             android:fontFamily="sans-serif-light"
-            android:text="Instruction" />
+            android:text="@string/instruction" />
 
         <View
             android:layout_width="match_parent"
@@ -34,7 +34,7 @@
             android:padding="16dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="95dp"
                 android:orientation="vertical">
 
@@ -42,7 +42,7 @@
                     android:id="@+id/time_image"
                     android:layout_width="63dp"
                     android:layout_height="57dp"
-                    android:layout_marginHorizontal="100dp"
+                    android:layout_marginHorizontal="70dp"
 
                     android:background="@drawable/baketime"
                     android:gravity="center" />
@@ -51,19 +51,34 @@
                     android:id="@+id/instruction_time"
                     android:layout_width="80dp"
                     android:layout_height="32dp"
-                    android:layout_marginHorizontal="88dp"
+                    android:layout_marginHorizontal="60dp"
                     android:gravity="center"
                     android:textSize="15sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
+            <Button
+                android:id="@+id/btn_fav"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/icon_fav_b_foreground"
+                android:layout_gravity="bottom|end"
+                android:layout_marginVertical="1dp"
+                android:layout_marginEnd="70dp"
+                style="?android:attr/borderlessButtonStyle"
+                />
+
+
             <ImageView
                 android:id="@+id/speech_image"
                 android:layout_width="35dp"
                 android:layout_height="28dp"
-                android:layout_marginRight="60dp"
+                android:layout_marginRight="80dp"
+
                 android:background="@drawable/speech1"
                 android:gravity="center" />
+
+
 
 
         </LinearLayout>

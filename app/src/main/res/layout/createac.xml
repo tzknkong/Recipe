@@ -21,7 +21,7 @@
             android:gravity="center"
             android:textAlignment="center"
             android:textSize="24sp"
-            android:text="Register" />
+            android:text="@string/register" />
     </LinearLayout>
 
     <LinearLayout
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Email"
+            android:hint="@string/register_email"
             android:inputType="textEmailAddress" />
 
         <EditText
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Password"
+            android:hint="@string/register_password"
             android:inputType="textPassword" />
 
         <EditText
@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Confirm Password"
+            android:hint="@string/confirm_password"
             android:inputType="textPassword" />
 
     </LinearLayout>
@@ -65,7 +65,7 @@
             android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Register" />
+            android:text="@string/register" />
 
         <ProgressBar
             android:id="@+id/progressBar"
