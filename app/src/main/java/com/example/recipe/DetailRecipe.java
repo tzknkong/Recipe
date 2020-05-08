@@ -72,7 +72,7 @@ public class DetailRecipe extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                String key = dataSnapshot.getKey();
+                                String key = dataSnapshot.child();
                                 //favorList.setRecipeid(key);
                                 Toast.makeText(DetailRecipe.this,key, Toast.LENGTH_LONG).show();
 
