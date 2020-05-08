@@ -40,12 +40,12 @@ public class DetailRecipe extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipe_content);
-        RecipeName = (TextView) findViewById(R.id.toolbar_image_title);
-        category = (TextView) findViewById(R.id.toolbar_image_category);
-        ingredients = (TextView)findViewById(R.id.ingredients_detail);
-        instruction = (TextView)findViewById(R.id.recipe_detail_instruction_text);
-        foodImage = (ImageView)findViewById(R.id.toolbar_imageview);
-        time = (TextView)findViewById(R.id.instruction_time);
+        RecipeName = findViewById(R.id.toolbar_image_title);
+        category =  findViewById(R.id.toolbar_image_category);
+        ingredients = findViewById(R.id.ingredients_detail);
+        instruction = findViewById(R.id.recipe_detail_instruction_text);
+        foodImage = findViewById(R.id.toolbar_imageview);
+        time = findViewById(R.id.instruction_time);
         speechimage = findViewById(R.id.speech_image);
         btnfav = findViewById(R.id.btn_fav);
 
@@ -72,7 +72,7 @@ public class DetailRecipe extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                String key = dataSnapshot.child();
+                                String key = dataSnapshot.getKey();
                                 //favorList.setRecipeid(key);
                                 Toast.makeText(DetailRecipe.this,key, Toast.LENGTH_LONG).show();
 
