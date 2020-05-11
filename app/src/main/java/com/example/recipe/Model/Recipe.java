@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Recipe {
     @SerializedName("img_url")
-    private  String recipe_Name,category,ingredients,instruction,img_uri,uid;
+    private  String recipe_Name,category,ingredients,instruction,img_uri,recipeid;
     private Integer time;
 
 
@@ -29,7 +29,8 @@ public class Recipe {
     }
     public void setIngredients(String ingredients){this.ingredients = ingredients;}
     public void setInstruction(String instruction){this.instruction = instruction;}
-    public void setUid(String uid) { this.uid = uid; }
+    public void setRecipeid(String recipeid) { this.recipeid = recipeid; }
+
 
     public String getCategory() { return category; }
     public String getIngredients() {
@@ -47,7 +48,9 @@ public class Recipe {
     public String getrecipe_Name() {
         return recipe_Name;
     }
-    public String getUid() { return uid; }
+    public String getRecipeid() {
+        return recipeid;
+    }
 
 
 }

@@ -14,4 +14,18 @@
         <item>dessertbook@gmail.com</item>
         <item>privacy</item>
     </string-array>
+
+    <string-array name="chtitle">
+        <item>應用程式名稱</item>
+        <item>版本</item>
+        <item>電郵</item>
+        <item>私隱</item>
+    </string-array>
+
+    <string-array name="chsubtitle">
+        <item>DessertBook</item>
+        <item>版本1.0</item>
+        <item>dessertbook@gmail.com</item>
+        <item>privacy</item>
+    </string-array>
 </resources>

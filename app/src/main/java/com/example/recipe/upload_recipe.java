@@ -133,6 +133,8 @@ public class upload_recipe extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             recipe.setImg_uri(uri.toString());
                             String uploadid = reff.push().getKey();
+
+                            recipe.setRecipeid(uploadid);
                             reff.child(uploadid).setValue(recipe);
                         }
                     });

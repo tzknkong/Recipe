@@ -3,17 +3,17 @@ package com.example.recipe;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.hardware.Camera;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +23,6 @@ import android.widget.TextView;
 import com.example.recipe.Adapter.AdapterLogin;
 import com.example.recipe.Adapter.AdapterRecipe;
 import com.example.recipe.Fragment.FragmentAbout;
-import com.example.recipe.Fragment.FragmentFavor;
 import com.example.recipe.Fragment.FragmentRecipe;
 import com.example.recipe.Fragment.FragmentSetting;
 import com.example.recipe.Model.Recipe;
@@ -135,8 +134,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.search, menu);
 
+        MenuItem searchViewItem = menu.findItem(R.id.search);
+
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchViewItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return true;
     }
 
@@ -161,16 +176,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
 
 
-            case R.id.drawer_favorite:
-                if (!menuItem.isChecked()) {
 
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container_drawer_content,
-                            new FragmentFavor(), FAVORITE_FRAGMENT_TAG).commit();
-
-                    toolbar.setTitle(R.string.drawer_favorite);
-                }
-                drawerLayout.closeDrawer(GravityCompat.START);
-                return true;
 
             case R.id.drawer_Login:
                 if (!menuItem.isChecked()) {

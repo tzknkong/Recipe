@@ -125,6 +125,7 @@ public class FragmentSetting extends Fragment  {
 
                 }
 
+
                 dialogInterface.dismiss();
             }
         });

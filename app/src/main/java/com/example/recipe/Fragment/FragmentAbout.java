@@ -8,6 +8,10 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import com.example.recipe.Adapter.AdapterAbout;
 import com.example.recipe.MainActivity;
@@ -52,8 +56,19 @@ public class FragmentAbout extends Fragment {
 
         toolbar = (Toolbar) rootView.findViewById(R.id.layout_toolbar);
 
-        titleId = getResources().getStringArray(R.array.title);
-        subtitleId = getResources().getStringArray(R.array.subtitle);
+
+        String currentLanguage = Locale.getDefault().getDisplayLanguage();
+
+        if (currentLanguage.toLowerCase().contains("中文")) {
+            titleId = getResources().getStringArray(R.array.chtitle);
+            subtitleId = getResources().getStringArray(R.array.chsubtitle);
+        }else {
+            titleId = getResources().getStringArray(R.array.title);
+            subtitleId = getResources().getStringArray(R.array.subtitle);
+        }
+
+
+
 
         AdapterAbout adapter = new AdapterAbout(getActivity(), titleId, subtitleId, imageId);
         list = (ListView) rootView.findViewById(R.id.list);

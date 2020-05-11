@@ -55,7 +55,7 @@ public class FragmentRecipe extends Fragment {
         View rootView = inflater.inflate(R.layout.recipe_list, container, false);
         setHasOptionsMenu(true);
 
-        //////////////////////////////////////////////////////////////////////////////////////////////////////
+ //////////////////////////////////////////////////////////////////////////////////////////////////////
         recyclerView = rootView.findViewById(R.id.rv_recipe);
 
 
@@ -71,7 +71,7 @@ public class FragmentRecipe extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(recipeadapter);
 
-        //////////////////////////////////////////////////////////////////////////////////////////////////////
+ //////////////////////////////////////////////////////////////////////////////////////////////////////
 
         fDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -97,11 +97,11 @@ public class FragmentRecipe extends Fragment {
         });
 
 
-        recyclerView = rootView.findViewById(R.id.rv_recipe);
 
 
         toolbar = (Toolbar) rootView.findViewById(R.id.layout_toolbar);
         setupToolbar();
+
         showFloatingActionButton(true);
 
         return rootView;
@@ -110,9 +110,10 @@ public class FragmentRecipe extends Fragment {
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.main, menu);
+        inflater.inflate(R.menu.search, menu);
 
         MenuItem searchViewItem = menu.findItem(R.id.search);
+
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchViewItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -127,6 +128,8 @@ public class FragmentRecipe extends Fragment {
                 return false;
             }
         });
+
+
 
     }
 

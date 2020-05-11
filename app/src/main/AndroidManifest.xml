@@ -22,7 +22,7 @@
 
 
         <activity
-            android:name="com.example.recipe.SplashActivity"
+            android:name=".SplashActivity"
             android:label="DessertBook">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,17 +31,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.recipe.MainActivity"
+            android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="DessertBook"
             android:requestLegacyExternalStorage="true"
             android:usesCleartextTraffic="true"
             >
+
+
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.SEARCH" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
+            <meta-data android:name="android.app.searchable"
+            android:resource="@xml/searchable"/>
         </activity>
+
         <activity
             android:name="com.example.recipe.Login"
            />
@@ -50,8 +56,6 @@
             android:name="com.example.recipe.upload_recipe"
             />
 
-
-
         <activity
             android:name="com.example.recipe.CreateAc"
              />
@@ -59,7 +63,6 @@
         <activity
             android:name="com.example.recipe.DetailRecipe"
             />
-
 
 
 

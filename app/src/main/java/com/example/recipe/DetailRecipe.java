@@ -1,6 +1,5 @@
 package com.example.recipe;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.text.TextUtils;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.recipe.Model.FavorList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,9 +30,10 @@ public class DetailRecipe extends AppCompatActivity {
     ImageView foodImage,speechimage;
     TextToSpeech i;
     Button btnfav;
-    FavorList favorList;
-    private FirebaseAuth fAuth;
 
+    private FirebaseAuth fAuth;
+    FirebaseDatabase db;
+    DatabaseReference refer;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,57 +46,14 @@ public class DetailRecipe extends AppCompatActivity {
         foodImage = findViewById(R.id.toolbar_imageview);
         time = findViewById(R.id.instruction_time);
         speechimage = findViewById(R.id.speech_image);
-        btnfav = findViewById(R.id.btn_fav);
-
-        fAuth = FirebaseAuth.getInstance();
-        FirebaseUser fuser = fAuth.getCurrentUser();
-        String uid = null;
-
-        if(fuser!= null) {
-            uid = fuser.getUid();
-
-        }
-        String finalUid = uid;
-
-        btnfav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    FirebaseDatabase db  = FirebaseDatabase.getInstance();
-                    DatabaseReference refer = db.getReference("Favor");
-                    String favid = refer.push().getKey();
-
-                    DatabaseReference ref = db.getReference("Recipe");
-                    ref.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                                String key = dataSnapshot.getKey();
-                                //favorList.setRecipeid(key);
-                                Toast.makeText(DetailRecipe.this,key, Toast.LENGTH_LONG).show();
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
 
 
 
-                    btnfav.setBackgroundResource(R.drawable.icon_fav_foreground);
 
-                    refer.child(finalUid).setValue(favorList);
-                }catch (Exception e){
-                    e.printStackTrace();
-                    displayExceptionMessage(e.getMessage());
-                    //Toast.makeText(DetailRecipe.this, "Please Login Account!!", Toast.LENGTH_LONG).show();
 
-                }
+        Bundle mBundle = getIntent().getExtras();
 
-            }
-        });
+
 
         speechimage.setOnClickListener(new View.OnClickListener(){
 
@@ -110,7 +66,7 @@ public class DetailRecipe extends AppCompatActivity {
             });
 
 
-        Bundle mBundle = getIntent().getExtras();
+
 
         String t = String.valueOf(mBundle.getInt("time"));
         if(mBundle!=null){

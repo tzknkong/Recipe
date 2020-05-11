@@ -32,9 +32,9 @@ public class AdapterAbout extends ArrayAdapter<String> {
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.about_list, null, true);
 
-        TextView title = (TextView) rowView.findViewById(R.id.title);
-        TextView subtitle = (TextView) rowView.findViewById(R.id.subtitle);
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.image);
+        TextView title =  rowView.findViewById(R.id.title);
+        TextView subtitle =  rowView.findViewById(R.id.subtitle);
+        ImageView imageView = rowView.findViewById(R.id.image);
 
         title.setText(titleId[position]);
         subtitle.setText(subtitleId[position]);

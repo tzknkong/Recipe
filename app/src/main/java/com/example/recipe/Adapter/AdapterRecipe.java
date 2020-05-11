@@ -64,8 +64,6 @@ public class AdapterRecipe extends RecyclerView.Adapter<RecipeViewHolder>{
         fDb = FirebaseDatabase.getInstance();
         databaseReference = fDb.getReference("Recipe");
         dburi = fDb.getReferenceFromUrl("https://recipe-efc7f.firebaseio.com/Recipe");
-       // currentuser = fauth.getCurrentUser().getUid();
-
 
 
         return new RecipeViewHolder(itemView);
@@ -116,6 +114,7 @@ public class AdapterRecipe extends RecyclerView.Adapter<RecipeViewHolder>{
                 intent.putExtra("instruction",recipeList.get(recipeViewHolder.getAdapterPosition()).getInstruction());
                 intent.putExtra("ingredients",recipeList.get(recipeViewHolder.getAdapterPosition()).getIngredients());
                 intent.putExtra("category",recipeList.get(recipeViewHolder.getAdapterPosition()).getCategory());
+                intent.putExtra("recipeid",recipeList.get(recipeViewHolder.getAdapterPosition()).getRecipeid());
 
 
                 acontext.startActivity(intent);

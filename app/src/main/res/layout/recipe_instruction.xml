@@ -57,17 +57,6 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_fav"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/icon_fav_b_foreground"
-                android:layout_gravity="bottom|end"
-                android:layout_marginVertical="1dp"
-                android:layout_marginEnd="70dp"
-                style="?android:attr/borderlessButtonStyle"
-                />
-
 
             <ImageView
                 android:id="@+id/speech_image"
