@@ -2,7 +2,7 @@
 
 Welcome to the Recipe App, that helps you identify desserts from photos and provides you with delicious recipes! Whether you're a foodie or just looking for new dessert ideas, this app has got you covered.
 
-Features
+# Features
 Scan and Identify Desserts: Use your phone's camera to take a photo of a dessert, and the app will analyze the image to identify the dessert accurately.
 
 Recipe Search: Once the dessert is identified, the app will provide you with a list of recipes for that specific dessert. You can explore different variations and cooking methods.
